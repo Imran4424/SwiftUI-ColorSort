@@ -10,6 +10,9 @@ import Foundation
 class GameplayModel: ObservableObject {
     @Published var highlightedId: UUID?
     
+    var myColors = Array(MyColor.all.shuffled().prefix(upTo: 3))
+    var myColorContainers = MyColor.all.shuffled()
+    
     func isHighlighted(id: UUID) -> Bool {
             highlightedId == id
     }

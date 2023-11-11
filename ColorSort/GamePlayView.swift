@@ -12,7 +12,7 @@ struct GamePlayView: View {
     @State private var inititalPosition: CGPoint = .zero
     @State private var currentPosition: CGPoint = .zero
     
-    var colors = Array(MyColor.all.shuffled().prefix(upTo: 3))
+    @StateObject private var model = GameplayModel()
     
     let gridItems = [
         GridItem(.flexible()),
@@ -35,9 +35,16 @@ struct GamePlayView: View {
     }
     
     var body: some View {
-        GeometryReader { geometry in
+        ZStack {
+            LazyVGrid(columns: gridItems, spacing: 20) {
+                ForEach(model.myColorContainers, id: \.self) { myColor in
+                    ColorContainerView(myColor: myColor, model: model)
+                }
+            }
             
-            
+            if let currentColor = currentColor {
+                
+            }
         }
     }
 }
