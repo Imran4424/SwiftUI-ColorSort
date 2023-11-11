@@ -12,6 +12,7 @@ struct GamePlayView: View {
     @State private var inititalPosition: CGPoint = .zero
     @State private var currentPosition: CGPoint = .zero
     
+    var colors = Array(MyColor.all.shuffled().prefix(upTo: 3))
     
     let gridItems = [
         GridItem(.flexible()),
