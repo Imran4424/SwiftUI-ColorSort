@@ -11,7 +11,7 @@ import SwiftUI
 struct ColorSortApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            GamePlayView()
         }
     }
 }

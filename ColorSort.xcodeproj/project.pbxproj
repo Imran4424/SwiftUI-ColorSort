@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1D28AFF12AFFC64100CA03D8 /* ColorSortApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D28AFF02AFFC64100CA03D8 /* ColorSortApp.swift */; };
-		1D28AFF32AFFC64100CA03D8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D28AFF22AFFC64100CA03D8 /* ContentView.swift */; };
+		1D28AFF32AFFC64100CA03D8 /* GamePlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D28AFF22AFFC64100CA03D8 /* GamePlayView.swift */; };
 		1D28AFF52AFFC64400CA03D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D28AFF42AFFC64400CA03D8 /* Assets.xcassets */; };
 		1D28AFF82AFFC64400CA03D8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D28AFF72AFFC64400CA03D8 /* Preview Assets.xcassets */; };
 		1D28B0002AFFCAF700CA03D8 /* MyColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D28AFFF2AFFCAF700CA03D8 /* MyColor.swift */; };
@@ -17,7 +17,7 @@
 /* Begin PBXFileReference section */
 		1D28AFED2AFFC64100CA03D8 /* ColorSort.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColorSort.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D28AFF02AFFC64100CA03D8 /* ColorSortApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSortApp.swift; sourceTree = "<group>"; };
-		1D28AFF22AFFC64100CA03D8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		1D28AFF22AFFC64100CA03D8 /* GamePlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePlayView.swift; sourceTree = "<group>"; };
 		1D28AFF42AFFC64400CA03D8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1D28AFF72AFFC64400CA03D8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1D28AFFF2AFFCAF700CA03D8 /* MyColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyColor.swift; sourceTree = "<group>"; };
@@ -55,7 +55,7 @@
 			children = (
 				1D28AFF02AFFC64100CA03D8 /* ColorSortApp.swift */,
 				1D28AFFE2AFFCAE500CA03D8 /* Model */,
-				1D28AFF22AFFC64100CA03D8 /* ContentView.swift */,
+				1D28AFF22AFFC64100CA03D8 /* GamePlayView.swift */,
 				1D28AFF42AFFC64400CA03D8 /* Assets.xcassets */,
 				1D28AFF62AFFC64400CA03D8 /* Preview Content */,
 			);
@@ -148,7 +148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D28AFF32AFFC64100CA03D8 /* ContentView.swift in Sources */,
+				1D28AFF32AFFC64100CA03D8 /* GamePlayView.swift in Sources */,
 				1D28AFF12AFFC64100CA03D8 /* ColorSortApp.swift in Sources */,
 				1D28B0002AFFCAF700CA03D8 /* MyColor.swift in Sources */,
 			);

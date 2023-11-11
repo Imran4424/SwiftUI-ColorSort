@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct GamePlayView: View {
     @State private var currentColor: MyColor?
     @State private var inititalPosition: CGPoint = .zero
     @State private var currentPosition: CGPoint = .zero
@@ -42,12 +42,12 @@ struct ContentView: View {
 }
 
 // MARK: - Game life cycle
-extension ContentView {
+extension GamePlayView {
     func confirmWhereToyWasDropped() {
         
     }
 }
 
 #Preview {
-    ContentView()
+    GamePlayView()
 }
