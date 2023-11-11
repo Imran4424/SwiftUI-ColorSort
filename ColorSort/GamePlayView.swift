@@ -53,15 +53,35 @@ struct GamePlayView: View {
                 
                 Spacer()
                     .onAppear {
-                        inititalPosition = CGPoint(
-                            x: geometry.size.width * 0.5,
-                            y: geometry.size.height * 0.9
+                        setInitialPosition(
+                            to: CGPoint(
+                                x: geometry.size.width * 0.5,
+                                y: geometry.size.height * 0.9
+                            )
                         )
-                        
-                        currentPosition = inititalPosition
+                    }
+                    .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+                        // handling device orientation
+                        // with a delay
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            setInitialPosition(
+                                to: CGPoint(
+                                    x: geometry.size.width * 0.5,
+                                    y: geometry.size.height * 0.9
+                                )
+                            )
+                        }
                     }
             }
         }
+    }
+}
+
+// MARK: - UI methods
+extension GamePlayView {
+    func setInitialPosition(to point: CGPoint) {
+        inititalPosition = point
+        currentPosition = inititalPosition
     }
 }
 
