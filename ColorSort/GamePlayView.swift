@@ -24,28 +24,19 @@ struct GamePlayView: View {
         DragGesture()
             .onChanged { gestureValue in
                 currentPosition = gestureValue.location
-                
-                guard let curId = currentColor?.id else {
-                    print("currentColor is nil")
-                    return
-                }
-                
-                guard let curColorContainter = model.frames[curId] else {
-                    return
-                }
-                
-                if curColorContainter.contains(currentPosition) {
-                    model.highlightedId = currentColor?.id
-                } else {
-                    model.highlightedId = nil
-                }
+
+                model.update(dragPosition: gestureValue.location, currentID: currentColor?.id)
             }
             .onEnded { gestureValue in
-                currentPosition = inititalPosition
+                currentPosition = gestureValue.location
                 model.highlightedId = nil
                 
                 withAnimation {
-                    confirmWhereToyWasDropped()
+                    if model.confirmWhereToyWasDropped(dragPosition: currentPosition, currentID: currentColor?.id) {
+                        
+                    } else {
+                        currentPosition = inititalPosition
+                    }
                 }
             }
     }

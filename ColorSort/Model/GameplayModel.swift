@@ -20,13 +20,39 @@ class GameplayModel: ObservableObject {
         frames[id] = frame
     }
     
-    func update(dragPosition: CGPoint) {
-        for (id, frame) in frames where frame.contains(dragPosition) {
-            highlightedId = id
+    func confirmWhereToyWasDropped(dragPosition: CGPoint, currentID: Int?) -> Bool {
+        guard let currentID = currentID else {
+            print("currentID is nil")
+            return false
+        }
+        
+        guard let curColorContainter = frames[currentID] else {
+            return false
+        }
+        
+        if curColorContainter.contains(dragPosition) {
+            return true
+        }
+            
+        
+        return false
+    }
+    
+    func update(dragPosition: CGPoint, currentID: Int?) {
+        guard let currentID = currentID else {
+            print("currentID is nil")
             return
         }
         
-        highlightedId = nil
+        guard let curColorContainter = frames[currentID] else {
+            return
+        }
+        
+        if curColorContainter.contains(dragPosition) {
+            highlightedId = currentID
+        } else {
+            highlightedId = nil
+        }
     }
     
     func isHighlighted(id: Int) -> Bool {
