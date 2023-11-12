@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+// MARK: - Making own closure of delay
+func runOnDelay(action: @escaping () -> Void) {
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+        action()
+    }
+}
+
 struct GamePlayView: View {
     @State private var currentColor: MyColor?
     @State private var inititalPosition: CGPoint = .zero
@@ -24,7 +31,7 @@ struct GamePlayView: View {
         DragGesture()
             .onChanged { gestureValue in
                 currentPosition = gestureValue.location
-
+                
                 model.update(dragPosition: gestureValue.location, currentID: currentColor?.id)
             }
             .onEnded { gestureValue in
@@ -42,47 +49,51 @@ struct GamePlayView: View {
     }
     
     var body: some View {
-        ZStack {
-            LazyVGrid(columns: gridItems, spacing: 20) {
-                ForEach(model.myColorContainers, id: \.self) { myColor in
-                    ColorContainerView(myColor: myColor, model: model)
-                }
-            }
-            
-            GeometryReader { geometry in
-                if let currentColor = currentColor {
-                    DraggableColorView(
-                        myColor: currentColor,
-                        position: currentPosition,
-                        gesture: drag
-                    )
+        NavigationStack {
+            ZStack {
+                LazyVGrid(columns: gridItems, spacing: 20) {
+                    ForEach(model.myColorContainers, id: \.self) { myColor in
+                        ColorContainerView(myColor: myColor, model: model)
+                    }
                 }
                 
-                Spacer()
-                    .onAppear {
-                        setInitialPosition(
-                            to: CGPoint(
-                                x: geometry.size.width * 0.5,
-                                y: geometry.size.height * 0.9
-                            )
+                GeometryReader { geometry in
+                    if let currentColor = currentColor {
+                        DraggableColorView(
+                            myColor: currentColor,
+                            position: currentPosition,
+                            gesture: drag
                         )
                     }
-                    .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
-                        // handling device orientation
-                        // with a delay
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                            setInitialPosition(
-                                to: CGPoint(
-                                    x: geometry.size.width * 0.5,
-                                    y: geometry.size.height * 0.9
+                    
+                    Spacer()
+                        .onAppear {
+                            runOnDelay {
+                                setInitialPosition(
+                                    to: CGPoint(
+                                        x: geometry.size.width * 0.5,
+                                        y: geometry.size.height * 0.9
+                                    )
                                 )
-                            )
+                            }
                         }
-                    }
+                        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+                            // handling device orientation
+                            // with a delay
+                            runOnDelay {
+                                setInitialPosition(
+                                    to: CGPoint(
+                                        x: geometry.size.width * 0.5,
+                                        y: geometry.size.height * 0.9
+                                    )
+                                )
+                            }
+                        }
+                }
             }
-        }
-        .onAppear {
-            setNextColor()
+            .onAppear {
+                setNextColor()
+            }
         }
     }
 }
