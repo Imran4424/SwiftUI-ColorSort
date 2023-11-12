@@ -20,6 +20,15 @@ class GameplayModel: ObservableObject {
         frames[id] = frame
     }
     
+    func update(dragPosition: CGPoint) {
+        for (id, frame) in frames where frame.contains(dragPosition) {
+            highlightedId = id
+            return
+        }
+        
+        highlightedId = nil
+    }
+    
     func isHighlighted(id: Int) -> Bool {
             return highlightedId == id
     }
