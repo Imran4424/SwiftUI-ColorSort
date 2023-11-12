@@ -5,17 +5,26 @@
 //  Created by Shah Md Imran Hossain on 11/11/23.
 //
 
-import Foundation
+import SwiftUI
 
 class GameplayModel: ObservableObject {
     @Published var highlightedId: Int?
     
     var frames: [Int: CGRect] = [:]
     
-    var myColors = Array(MyColor.all.shuffled().prefix(upTo: 3))
+    var myColors = Array(MyColor.all.shuffled())
     var myColorContainers = MyColor.all.shuffled()
     
     // MARK: - Updates in the screen
+    
+    func resetForNextRound() {
+        myColors = Array(MyColor.all.shuffled())
+        
+        withAnimation {
+            myColorContainers = MyColor.all.shuffled()
+        }
+    }
+    
     func update(frame: CGRect, for id: Int) {
         frames[id] = frame
     }
@@ -31,28 +40,20 @@ class GameplayModel: ObservableObject {
         }
         
         if curColorContainter.contains(dragPosition) {
+            highlightedId = nil
             return true
         }
-            
         
         return false
     }
     
-    func update(dragPosition: CGPoint, currentID: Int?) {
-        guard let currentID = currentID else {
-            print("currentID is nil")
+    func update(dragPosition: CGPoint) {
+        for (id, frame) in frames where frame.contains(dragPosition) {
+            highlightedId = id
             return
         }
         
-        guard let curColorContainter = frames[currentID] else {
-            return
-        }
-        
-        if curColorContainter.contains(dragPosition) {
-            highlightedId = currentID
-        } else {
-            highlightedId = nil
-        }
+        highlightedId = nil
     }
     
     func isHighlighted(id: Int) -> Bool {

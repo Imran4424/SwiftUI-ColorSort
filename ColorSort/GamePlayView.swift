@@ -19,6 +19,9 @@ struct GamePlayView: View {
     @State private var inititalPosition: CGPoint = .zero
     @State private var currentPosition: CGPoint = .zero
     
+    @State private var score = 0
+    @State private var draggableToyOpacity: CGFloat = 1.0
+    
     @StateObject private var model = GameplayModel()
     
     let gridItems = [
@@ -31,17 +34,17 @@ struct GamePlayView: View {
         DragGesture()
             .onChanged { gestureValue in
                 currentPosition = gestureValue.location
-                
-                model.update(dragPosition: gestureValue.location, currentID: currentColor?.id)
+                model.update(dragPosition: gestureValue.location)
             }
             .onEnded { gestureValue in
                 currentPosition = gestureValue.location
-                model.highlightedId = nil
                 
                 withAnimation {
                     if model.confirmWhereToyWasDropped(dragPosition: currentPosition, currentID: currentColor?.id) {
-                        
+                        score = score + 1
+                        draggableToyOpacity = 0
                     } else {
+                        model.highlightedId = nil
                         currentPosition = inititalPosition
                     }
                 }
@@ -64,6 +67,7 @@ struct GamePlayView: View {
                             position: currentPosition,
                             gesture: drag
                         )
+                        .opacity(draggableToyOpacity)
                     }
                     
                     Spacer()
@@ -94,6 +98,15 @@ struct GamePlayView: View {
             .onAppear {
                 setNextColor()
             }
+            .onChange(of: score){ _, _ in
+                setNextColor()
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Text("Score: \(score)")
+                        .font(.largeTitle)
+                }
+            }
         }
     }
 }
@@ -101,6 +114,9 @@ struct GamePlayView: View {
 // MARK: - UI methods
 extension GamePlayView {
     func setNextColor() {
+        model.resetForNextRound()
+        currentPosition = inititalPosition
+        draggableToyOpacity = 1.0
         currentColor = model.myColors.popLast()
     }
     
@@ -112,9 +128,7 @@ extension GamePlayView {
 
 // MARK: - Game life cycle
 extension GamePlayView {
-    func confirmWhereToyWasDropped() {
-        
-    }
+    
 }
 
 #Preview {
