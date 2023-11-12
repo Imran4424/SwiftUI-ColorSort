@@ -8,12 +8,19 @@
 import Foundation
 
 class GameplayModel: ObservableObject {
-    @Published var highlightedId: UUID?
+    @Published var highlightedId: Int?
+    
+    var frames: [Int: CGRect] = [:]
     
     var myColors = Array(MyColor.all.shuffled().prefix(upTo: 3))
     var myColorContainers = MyColor.all.shuffled()
     
-    func isHighlighted(id: UUID) -> Bool {
-            highlightedId == id
+    // MARK: - Updates in the screen
+    func update(frame: CGRect, for id: Int) {
+        frames[id] = frame
+    }
+    
+    func isHighlighted(id: Int) -> Bool {
+            return highlightedId == id
     }
 }

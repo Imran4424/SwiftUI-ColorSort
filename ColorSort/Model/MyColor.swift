@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct MyColor: Hashable {
-    let id: UUID = UUID()
+    let id: Int
     let color: Color
 }
 
 extension MyColor {
     static let all = [
-        MyColor(color: .red),
-        MyColor(color: .blue),
-        MyColor(color: .green),
-        MyColor(color: .black),
-        MyColor(color: .orange),
-        MyColor(color: .purple)
+        MyColor(id: 1, color: .red),
+        MyColor(id: 2, color: .blue),
+        MyColor(id: 3, color: .green),
+        MyColor(id: 4, color: .black),
+        MyColor(id: 5, color: .orange),
+        MyColor(id: 6, color: .purple)
     ]
 }

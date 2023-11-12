@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct GamePlayView: View {
-    @State private var currentColor: MyColor? = MyColor.all.first!
+    @State private var currentColor: MyColor?
     @State private var inititalPosition: CGPoint = .zero
     @State private var currentPosition: CGPoint = .zero
     
@@ -24,12 +24,14 @@ struct GamePlayView: View {
         DragGesture()
             .onChanged { gestureValue in
                 currentPosition = gestureValue.location
+                model.highlightedId = currentColor?.id
             }
             .onEnded { gestureValue in
                 currentPosition = inititalPosition
+                model.highlightedId = nil
                 
                 withAnimation {
-                    // confirmWhereToyWasDropped()
+                    confirmWhereToyWasDropped()
                 }
             }
     }
@@ -74,11 +76,18 @@ struct GamePlayView: View {
                     }
             }
         }
+        .onAppear {
+            setNextColor()
+        }
     }
 }
 
 // MARK: - UI methods
 extension GamePlayView {
+    func setNextColor() {
+        currentColor = model.myColors.popLast()
+    }
+    
     func setInitialPosition(to point: CGPoint) {
         inititalPosition = point
         currentPosition = inititalPosition

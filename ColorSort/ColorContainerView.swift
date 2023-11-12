@@ -29,6 +29,12 @@ struct ColorContainerView: View {
                     )
             }
         }
+        .overlay {
+            GeometryReader { proxy -> Color in
+                model.update(frame: proxy.frame(in: .global), for: myColor.id)
+                return Color.clear
+            }
+        }
         .frame(width: highlightedSize, height: highlightedSize)
     }
 }
